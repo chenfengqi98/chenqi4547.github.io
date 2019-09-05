@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,Singleton,">
+  <meta name="keywords" content="Redis,">
 
 
 
@@ -79,18 +79,26 @@
 
 
 
-<meta name="description" content="设计模式之单例模式简介 单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一，它提供了一种创建对象的最佳方式。  实现单例模式的实现要点是：  将构造方法定义为私有，防止外部通过new创建实例 定义获取唯一实例的公有静态方法。 同时将实例变量定义为静态，以便静态的获取实例方法获取    饿汉式   12345678public class Singleton&amp;#123">
-<meta name="keywords" content="Java,Singleton">
+<meta name="description" content="Redis压力测试 分布式情况下对Redis高并发测试  一个简单的Redis高并发测试，从Redis读取一个key值，并让值加一更新key值。">
+<meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式之单例模式">
-<meta property="og:url" content="http://yoursite.com/2019/08/05/设计模式之单例模式/index.html">
+<meta property="og:title" content="Redis压力测试">
+<meta property="og:url" content="http://yoursite.com/2019/09/05/Redis压力测试/index.html">
 <meta property="og:site_name" content="子非鱼">
-<meta property="og:description" content="设计模式之单例模式简介 单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一，它提供了一种创建对象的最佳方式。  实现单例模式的实现要点是：  将构造方法定义为私有，防止外部通过new创建实例 定义获取唯一实例的公有静态方法。 同时将实例变量定义为静态，以便静态的获取实例方法获取    饿汉式   12345678public class Singleton&amp;#123">
+<meta property="og:description" content="Redis压力测试 分布式情况下对Redis高并发测试  一个简单的Redis高并发测试，从Redis读取一个key值，并让值加一更新key值。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-05T06:38:20.276Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/Redis压力测试/conf.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/Redis压力测试/redis.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/Redis压力测试/result1.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/Redis压力测试/result2.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/Redis压力测试/result3.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/Redis压力测试/result4.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/05/Redis压力测试/result5.png">
+<meta property="og:updated_time" content="2019-09-05T03:56:20.630Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式之单例模式">
-<meta name="twitter:description" content="设计模式之单例模式简介 单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一，它提供了一种创建对象的最佳方式。  实现单例模式的实现要点是：  将构造方法定义为私有，防止外部通过new创建实例 定义获取唯一实例的公有静态方法。 同时将实例变量定义为静态，以便静态的获取实例方法获取    饿汉式   12345678public class Singleton&amp;#123">
+<meta name="twitter:title" content="Redis压力测试">
+<meta name="twitter:description" content="Redis压力测试 分布式情况下对Redis高并发测试  一个简单的Redis高并发测试，从Redis读取一个key值，并让值加一更新key值。">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/05/Redis压力测试/conf.png">
 
 
 
@@ -120,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/08/05/设计模式之单例模式/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/05/Redis压力测试/">
 
 
 
 
 
-  <title>设计模式之单例模式 | 子非鱼</title>
+  <title>Redis压力测试 | 子非鱼</title>
   
 
 
@@ -263,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/05/设计模式之单例模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/05/Redis压力测试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="子非鱼">
@@ -280,7 +288,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">设计模式之单例模式</h1>
+          <h1 class="post-title" itemprop="name headline">Redis压力测试</h1>
         
 
         <div class="post-meta">
@@ -292,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-05T11:52:36+08:00">
-                2019-08-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-05T11:40:22+08:00">
+                2019-09-05
               </time>
             
 
@@ -308,8 +316,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-05T14:38:20+08:00">
-                2019-08-05
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-05T11:56:20+08:00">
+                2019-09-05
               </time>
             
           </span>
@@ -327,19 +335,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/Singleton/" itemprop="url" rel="index">
-                    <span itemprop="name">Singleton</span>
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
                   </a>
                 </span>
 
@@ -356,8 +353,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/08/05/设计模式之单例模式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/05/设计模式之单例模式/" itemprop="commentCount"></span>
+                <a href="/2019/09/05/Redis压力测试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/05/Redis压力测试/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -384,7 +381,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  338字
+                  510字
                 </span>
               
 
@@ -400,7 +397,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2分钟
+                  3分钟
                 </span>
               
             </div>
@@ -421,44 +418,56 @@
       
 
       
-        <h1 id="设计模式之单例模式"><a href="#设计模式之单例模式" class="headerlink" title="设计模式之单例模式"></a>设计模式之单例模式</h1><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><blockquote>
-<p>单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一，它提供了一种创建对象的最佳方式。</p>
+        <h1 id="Redis压力测试"><a href="#Redis压力测试" class="headerlink" title="Redis压力测试"></a>Redis压力测试</h1><blockquote>
+<p>分布式情况下对Redis高并发测试</p>
 </blockquote>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>单例模式的实现要点是：</p>
-<ol>
-<li>将构造方法定义为私有，防止外部通过new创建实例</li>
-<li>定义获取唯一实例的公有静态方法。</li>
-<li>同时将实例变量定义为静态，以便静态的获取实例方法获取</li>
-</ol>
-<blockquote>
-<ol>
-<li>饿汉式</li>
-</ol>
+<p>一个简单的Redis高并发测试，从Redis读取一个key值，并让值加一更新key值。<a id="more"></a></p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><blockquote>
+<p>RedissonController</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton sin = <span class="keyword">new</span> Singleton();</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingle</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> sin;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedissonController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    RedisUtil redisUtil;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"testRedisson"</span>)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">testRedisson</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Jedis jedis = redisUtil.getJedis();</span><br><span class="line">        String v = jedis.get(<span class="string">"k"</span>);</span><br><span class="line">        <span class="keyword">if</span>(StringUtils.isBlank(v))&#123;</span><br><span class="line">            v = <span class="string">"1"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"---&gt;"</span>+v);</span><br><span class="line">        jedis.set(<span class="string">"k"</span>, (Integer.parseInt(v) + <span class="number">1</span>) + <span class="string">""</span>);</span><br><span class="line">        jedis.close();</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>饿汉式方法在类加载我的时候就会new出一个静态对象来，要用的时候直接返回。但是缺点是单例在还没有使用的时候初始化已经完成，不能延迟加载。</p>
-<blockquote>
-<ol start="2">
-<li>懒汉式</li>
-</ol>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码没有使用Redisson锁，先测试没有锁的结果。</p>
+<hr>
+<h3 id="多例模式"><a href="#多例模式" class="headerlink" title="多例模式"></a>多例模式</h3><p>设置SpringBoot启动项为<code>Allow parallel run</code>，多例模式启动。</p>
+<img src="/2019/09/05/Redis压力测试/conf.png">
 
-<blockquote>
-<ol start="3">
-<li>双重校验锁</li>
-</ol>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(Singleton.class)&#123;</span><br><span class="line">                <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    instance == <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="整合Nginx负载均衡"><a href="#整合Nginx负载均衡" class="headerlink" title="整合Nginx负载均衡"></a>整合Nginx负载均衡</h3><p>nginx.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">   #keepalive_timeout  0;</span><br><span class="line">   keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">   #gzip  on;</span><br><span class="line">   upstream redisTest&#123;</span><br><span class="line">           	server	127.0.0.1:8081 weight=3;</span><br><span class="line">server	127.0.0.1:8082 weight=3;</span><br><span class="line">server	127.0.0.1:8083 weight=3;</span><br><span class="line">   &#125;</span><br><span class="line">   server &#123;</span><br><span class="line">       listen       8084;</span><br><span class="line">       server_name  localhost;</span><br><span class="line"></span><br><span class="line">       #charset koi8-r;</span><br><span class="line"></span><br><span class="line">       #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">       location / &#123;</span><br><span class="line">           #root   html;</span><br><span class="line">           proxy_pass http://redisTest;</span><br><span class="line">           index  index.html index.htm;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
 
+<p>让Nginx代理<code>8081,8082,8083</code>端口。</p>
+<h2 id="开始测试"><a href="#开始测试" class="headerlink" title="开始测试"></a>开始测试</h2><p>测试软件使用的Apache测试工具，使用压力命令<code>ab -c xxx -n xxx http://xxx</code>即可模拟并发请求。ab是压力命令，c是并发数，n是总请求数。</p>
+<p>开启Apache的httpd服务后，在bin目录下输入<code>ab -c 200 -n 1000 http://localhost:8084/testRedisson</code>,模拟200并发，1000个请求。</p>
 <blockquote>
-<ol start="4">
-<li>静态内部类实现单例模式</li>
-</ol>
+<p>测试开始前Redis中k的值</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> class <span class="title">SingletonHandler</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getIntance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHandler.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="/2019/09/05/Redis压力测试/redis.png">
+<blockquote>
+<p>测试情况</p>
+</blockquote>
+<img src="/2019/09/05/Redis压力测试/result1.png">
+<hr>
+<img src="/2019/09/05/Redis压力测试/result2.png">
+<hr>
+<img src="/2019/09/05/Redis压力测试/result3.png">
+<blockquote>
+<p>测试完成后Redis中k的值</p>
+</blockquote>
+<img src="/2019/09/05/Redis压力测试/result4.png">
 
+<h2 id="从结果可以看出，k的值并没有到1000。并且还有一些重复的值出现。"><a href="#从结果可以看出，k的值并没有到1000。并且还有一些重复的值出现。" class="headerlink" title="  从结果可以看出，k的值并没有到1000。并且还有一些重复的值出现。"></a>  从结果可以看出，k的值并没有到1000。并且还有一些重复的值出现。</h2><p>使用Redisson锁测试</p>
+<blockquote>
+<p>RedissonController</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedissonController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    RedisUtil redisUtil;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"testRedisson"</span>)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">testRedisson</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Jedis jedis = redisUtil.getJedis();</span><br><span class="line">        RLock lock = redissonClient.getLock(<span class="string">"lock"</span>);</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String v = jedis.get(<span class="string">"k"</span>);</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isBlank(v)) &#123;</span><br><span class="line">                v = <span class="string">"1"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"-&gt;"</span>+v);</span><br><span class="line">            jedis.set(<span class="string">"k"</span>, (Integer.parseInt(v) + <span class="number">1</span>) + <span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            jedis.close();</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重置Redis中k的值后，再次测试。</p>
+<blockquote>
+<p>测试结果</p>
+</blockquote>
+<img src="/2019/09/05/Redis压力测试/result5.png">
+
+<p>k的值为1000，控制台打印的值没有重复。</p>
 
       
     </div>
@@ -476,9 +485,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-            <a href="/tags/Singleton/" rel="tag"># Singleton</a>
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
           
         </div>
       
@@ -506,8 +513,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/04/生产者消费者问题/" rel="next" title="生产者消费者问题">
-                <i class="fa fa-chevron-left"></i> 生产者消费者问题
+              <a href="/2019/08/20/SpringBoot整合Dubbo/" rel="next" title="SpringBoot整合Dubbo">
+                <i class="fa fa-chevron-left"></i> SpringBoot整合Dubbo
               </a>
             
           </div>
@@ -515,10 +522,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/05/同步容器与并发容器/" rel="prev" title="同步容器与并发容器">
-                同步容器与并发容器 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -669,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式之单例模式"><span class="nav-number">1.</span> <span class="nav-text">设计模式之单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.0.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">1.0.2.</span> <span class="nav-text">实现</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis压力测试"><span class="nav-number">1.</span> <span class="nav-text">Redis压力测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试代码"><span class="nav-number">1.1.1.</span> <span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多例模式"><span class="nav-number">1.1.2.</span> <span class="nav-text">多例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整合Nginx负载均衡"><span class="nav-number">1.1.3.</span> <span class="nav-text">整合Nginx负载均衡</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始测试"><span class="nav-number">1.2.</span> <span class="nav-text">开始测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从结果可以看出，k的值并没有到1000。并且还有一些重复的值出现。"><span class="nav-number">1.3.</span> <span class="nav-text">  从结果可以看出，k的值并没有到1000。并且还有一些重复的值出现。</span></a></li></ol></li></ol></div>
             
 
           </div>
