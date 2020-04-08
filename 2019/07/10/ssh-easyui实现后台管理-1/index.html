@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,SSH,EasyUI,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="子非鱼" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="easy-ui+ssh使用easy-ui作为前台界面，后台用的是ssh框架，做的一个课程设计，实现一个后台管理系统。使用easy-ui的datagrid，通过ajax实现CURD操作。">
+<meta name="keywords" content="Java,SSH,EasyUI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ssh-easyui实现后台管理(1)">
+<meta property="og:url" content="http://yoursite.com/2019/07/10/ssh-easyui实现后台管理-1/index.html">
+<meta property="og:site_name" content="子非鱼">
+<meta property="og:description" content="easy-ui+ssh使用easy-ui作为前台界面，后台用的是ssh框架，做的一个课程设计，实现一个后台管理系统。使用easy-ui的datagrid，通过ajax实现CURD操作。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/07/10/ssh-easyui实现后台管理-1/easy1.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/10/ssh-easyui实现后台管理-1/easy2.png">
+<meta property="og:updated_time" content="2020-04-08T10:08:05.734Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ssh-easyui实现后台管理(1)">
+<meta name="twitter:description" content="easy-ui+ssh使用easy-ui作为前台界面，后台用的是ssh框架，做的一个课程设计，实现一个后台管理系统。使用easy-ui的datagrid，通过ajax实现CURD操作。">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/10/ssh-easyui实现后台管理-1/easy1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/10/ssh-easyui实现后台管理-1/">
+
+
+
+
+
+  <title>ssh-easyui实现后台管理(1) | 子非鱼</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">子非鱼</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">六眼飞鱼</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/ssh-easyui实现后台管理-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="子非鱼">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="子非鱼">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ssh-easyui实现后台管理(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-10T08:53:24+08:00">
+                2019-07-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-04-08T18:08:05+08:00">
+                2020-04-08
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/SSH/" itemprop="url" rel="index">
+                    <span itemprop="name">SSH</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/10/ssh-easyui实现后台管理-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/10/ssh-easyui实现后台管理-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,457字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="easy-ui-ssh"><a href="#easy-ui-ssh" class="headerlink" title="easy-ui+ssh"></a><center>easy-ui+ssh</center></h1><p>使用easy-ui作为前台界面，后台用的是ssh框架，做的一个课程设计，实现一个后台管理系统。使用easy-ui的datagrid，通过ajax实现CURD操作。<a id="more"></a></p>
+<h2 id="前台页面-reception-jsp"><a href="#前台页面-reception-jsp" class="headerlink" title="前台页面 reception.jsp"></a>前台页面 reception.jsp</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=UTF-8"</span></span><br><span class="line">    pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">    &lt;%<span class="meta">@taglib</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> prefix=<span class="string">"c"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">&lt;title&gt;前台&lt;/title&gt;</span><br><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> type=<span class="string">"text/css"</span> href=<span class="string">"$&#123;pageContext.request.contextPath&#125;/themes/bootstrap/easyui.css"</span>&gt;</span><br><span class="line">	&lt;link rel=<span class="string">"stylesheet"</span> type=<span class="string">"text/css"</span> href=<span class="string">"$&#123;pageContext.request.contextPath&#125;/themes/icon.css"</span>&gt;</span><br><span class="line">	&lt;script type="text/javascript" src="$&#123;pageContext.request.contextPath&#125;/js/jquery.min.js"&gt;&lt;/script&gt;</span><br><span class="line">	&lt;script type="text/javascript" src="$&#123;pageContext.request.contextPath&#125;/js/jquery.easyui.min.js"&gt;&lt;/script&gt;</span><br><span class="line">		&lt;style type=<span class="string">"text/css"</span>&gt;</span><br><span class="line">		.menuA&#123;</span><br><span class="line">			text-decoration :none;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/style&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">		$(function()&#123;</span><br><span class="line">			$(<span class="string">".menuA"</span>).click(function()&#123;</span><br><span class="line">				<span class="keyword">var</span> contentText = <span class="keyword">this</span>.innerHTML;</span><br><span class="line">				<span class="keyword">var</span> url = <span class="keyword">this</span>.href;</span><br><span class="line">				<span class="comment">//alert(url);</span></span><br><span class="line">				createTab(contentText,url);</span><br><span class="line">				<span class="comment">// 超链接就不跳转</span></span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="function">function <span class="title">createTab</span><span class="params">(contentText,url)</span></span>&#123;</span><br><span class="line">			<span class="comment">// 判断选项卡是否存在:</span></span><br><span class="line">			<span class="keyword">var</span> flag = $(<span class="string">"#tt"</span>).tabs(<span class="string">"exists"</span>,contentText);</span><br><span class="line">			<span class="keyword">if</span>(flag)&#123;</span><br><span class="line">				<span class="comment">// 如果已经存在，让其被选中</span></span><br><span class="line">				$(<span class="string">"#tt"</span>).tabs(<span class="string">"select"</span>,contentText);</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="comment">// 如果不存在,创建新的选项卡</span></span><br><span class="line">				$(<span class="string">'#tt'</span>).tabs(<span class="string">'add'</span>,&#123;    </span><br><span class="line">				    title:contentText,    </span><br><span class="line">				    content:createUrl(url),    </span><br><span class="line">				    closable:<span class="keyword">true</span>   </span><br><span class="line">				&#125;); </span><br><span class="line">			&#125; </span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="function">function <span class="title">createUrl</span><span class="params">(url)</span></span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"&lt;iframe src='"</span>+url+<span class="string">"' style='width:100%;height:95%;border:none;'&gt;&lt;/iframe&gt;"</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=<span class="string">"cc"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"easyui-layout"</span> data-options=<span class="string">"fit:true"</span>&gt;   </span><br><span class="line">    &lt;div data-options="region:'north',title:'商场后台管理',split:true" style="height:100px;"&gt;&lt;/div&gt;   </span><br><span class="line">    &lt;div data-options=<span class="string">"region:'west',title:'系统菜单',split:true"</span> style=<span class="string">"width:200px;"</span>&gt;</span><br><span class="line">    	&lt;div id=<span class="string">"aa"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"easyui-accordion"</span> data-options=<span class="string">"fit:true"</span>&gt;   		   </span><br><span class="line">		    &lt;div title=<span class="string">"订单管理"</span> data-options=<span class="string">"iconCls:'icon-man'"</span> style=<span class="string">"overflow:auto;padding:10px;"</span>&gt;   </span><br><span class="line">		    	&lt;a href="$&#123;pageContext.request.contextPath&#125;/order.html" class="menuA"&gt;订单列表&lt;/a&gt;</span><br><span class="line">		    &lt;/div&gt;   </span><br><span class="line">		    &lt;div title=<span class="string">"员工管理"</span> data-options=<span class="string">"iconCls:'icon-man'"</span> style=<span class="string">"overflow:auto;padding:10px;"</span>&gt;   </span><br><span class="line">		    	&lt;a href="$&#123;pageContext.request.contextPath&#125;/emp.html" class="menuA"&gt;员工列表&lt;/a&gt;</span><br><span class="line">		    &lt;/div&gt;    </span><br><span class="line">		    &lt;div title=<span class="string">"商品管理"</span> data-options=<span class="string">"iconCls:'icon-man'"</span> style=<span class="string">"overflow:auto;padding:10px;"</span>&gt;   </span><br><span class="line">		    	&lt;a href="$&#123;pageContext.request.contextPath&#125;/good.html" class="menuA"&gt;商品列表&lt;/a&gt;</span><br><span class="line">		    &lt;/div&gt;  </span><br><span class="line">		&lt;/div&gt;  </span><br><span class="line">    &lt;/div&gt;   </span><br><span class="line">    &lt;div data-options=<span class="string">"region:'center',title:''"</span> style=<span class="string">"padding:5px;background:#eee;"</span>&gt;</span><br><span class="line">    	&lt;div id=<span class="string">"tt"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"easyui-tabs"</span> data-options=<span class="string">"fit:true"</span>&gt;   </span><br><span class="line">		    &lt;div title=<span class="string">"数据显示"</span> style=<span class="string">"padding:20px;display:none;"</span>&gt;   </span><br><span class="line">		        &lt;h1&gt;欢迎光临&lt;/h1&gt;</span><br><span class="line">		    &lt;/div&gt;   </span><br><span class="line">		&lt;/div&gt; </span><br><span class="line">    &lt;/div&gt;   </span><br><span class="line">&lt;/div&gt;  </span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据展示页面-emp-html"><a href="#数据展示页面-emp-html" class="headerlink" title="数据展示页面 emp.html"></a>数据展示页面 emp.html</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Insert title here<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"./themes/bootstrap/easyui.css"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"./themes/icon.css"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"./js/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"./js/jquery.easyui.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"./locale/easyui-lang-zh_CN.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="javascript">	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		$(<span class="string">'#dg'</span>).datagrid(&#123;    </span></span><br><span class="line"><span class="actionscript">		    url:<span class="string">'emp_findByPage.action'</span>,    </span></span><br><span class="line">		    columns:[[    </span><br><span class="line"><span class="actionscript">		        &#123;field:<span class="string">'emp_name'</span>,title:<span class="string">'员工姓名'</span>,width:<span class="number">200</span>&#125;,    </span></span><br><span class="line"><span class="actionscript">		        &#123;field:<span class="string">'emp_sex'</span>,title:<span class="string">'员工性别'</span>,width:<span class="number">200</span>&#125;,    </span></span><br><span class="line"><span class="actionscript">		        &#123;field:<span class="string">'emp_age'</span>,title:<span class="string">'员工年龄'</span>,width:<span class="number">200</span>&#125; ,   </span></span><br><span class="line"><span class="actionscript">		        &#123;field:<span class="string">'emp_phone'</span>,title:<span class="string">'手机号码'</span>,width:<span class="number">200</span>&#125; ,   </span></span><br><span class="line"><span class="actionscript">		        &#123;field:<span class="string">'emp_dep'</span>,title:<span class="string">'职位'</span>,width:<span class="number">200</span>&#125; , </span></span><br><span class="line">		    ]],</span><br><span class="line"><span class="actionscript">		    fitColumns:<span class="literal">false</span>,</span></span><br><span class="line"><span class="actionscript">		 <span class="comment">// 显示分页工具条</span></span></span><br><span class="line"><span class="actionscript">	        pagination:<span class="literal">true</span>,</span></span><br><span class="line"><span class="actionscript">	        <span class="comment">// 初始化的页数</span></span></span><br><span class="line">	        pageNumber:1,</span><br><span class="line"><span class="actionscript">	        <span class="comment">// 每页显示记录数:</span></span></span><br><span class="line">	        pageSize:3,</span><br><span class="line"><span class="actionscript">	        <span class="comment">// 分页工具条中下拉列表中的值：</span></span></span><br><span class="line">	        pageList:[3,5,10],</span><br><span class="line"><span class="actionscript">	        <span class="comment">// 隔行换色</span></span></span><br><span class="line"><span class="actionscript">	        striped:<span class="literal">true</span>,</span></span><br><span class="line"><span class="actionscript">	        singleSelect:<span class="literal">true</span>,</span></span><br><span class="line">	        toolbar: [&#123;</span><br><span class="line"><span class="actionscript">	    		iconCls: <span class="string">'icon-add'</span>,</span></span><br><span class="line"><span class="actionscript">	    		handler: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="javascript">	    			$(<span class="string">"#winAdd"</span>).window(<span class="string">"open"</span>);</span></span><br><span class="line">	    			&#125;</span><br><span class="line">	    		&#125;,</span><br><span class="line">	    		&#123;</span><br><span class="line"><span class="actionscript">	    		iconCls: <span class="string">'icon-remove'</span>,</span></span><br><span class="line"><span class="actionscript">	    		handler: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span></span><br><span class="line">	    			deleteById();</span><br><span class="line">	    			&#125;</span><br><span class="line">	    		&#125;,</span><br><span class="line">	    		&#123;</span><br><span class="line"><span class="actionscript">		    		iconCls: <span class="string">'icon-edit'</span>,</span></span><br><span class="line"><span class="actionscript">		    		handler: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span></span><br><span class="line">		    			editById()</span><br><span class="line">		    	&#125;</span><br><span class="line">	    	&#125;],</span><br><span class="line"></span><br><span class="line">		&#125;);  </span><br><span class="line">	&#125;)</span><br><span class="line">	</span><br><span class="line"><span class="actionscript">	<span class="function"><span class="keyword">function</span> <span class="title">save</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="javascript">		$(<span class="string">'#formAdd'</span>).form(&#123;    </span></span><br><span class="line"><span class="actionscript">		    url:<span class="string">"emp_save.action"</span>,    </span></span><br><span class="line"><span class="actionscript">		    success:<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>&#123;    </span></span><br><span class="line"><span class="javascript">		       <span class="keyword">var</span> jsonData = <span class="built_in">eval</span>(<span class="string">"("</span>+data+<span class="string">")"</span>);</span></span><br><span class="line"><span class="javascript">		       $.messager.show(&#123;</span></span><br><span class="line"><span class="actionscript">		    		title:<span class="string">'提示消息'</span>,</span></span><br><span class="line">		    		msg:jsonData.msg,</span><br><span class="line">		    		timeout:3000,</span><br><span class="line"><span class="actionscript">		    		showType:<span class="string">'slide'</span></span></span><br><span class="line">		    	&#125;);</span><br><span class="line"><span class="actionscript">		    	<span class="comment">// 关闭窗口:</span></span></span><br><span class="line"><span class="javascript">		    	$(<span class="string">"#winAdd"</span>).window(<span class="string">"close"</span>);</span></span><br><span class="line"><span class="actionscript">		    	<span class="comment">// 重新加载数据:</span></span></span><br><span class="line"><span class="javascript">		    	$(<span class="string">"#dg"</span>).datagrid(<span class="string">"reload"</span>);</span></span><br><span class="line">		    &#125;    </span><br><span class="line">		&#125;);    </span><br><span class="line"><span class="actionscript">		<span class="comment">// submit the form    </span></span></span><br><span class="line"><span class="javascript">		$(<span class="string">'#formAdd'</span>).submit();  </span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="actionscript">	<span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="javascript">		$(<span class="string">'#formUpdate'</span>).form(&#123;    </span></span><br><span class="line"><span class="actionscript">		    url:<span class="string">"emp_update.action"</span>,    </span></span><br><span class="line"><span class="actionscript">		    success:<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span>&#123;    </span></span><br><span class="line"><span class="javascript">		       <span class="keyword">var</span> jsonData = <span class="built_in">eval</span>(<span class="string">"("</span>+data+<span class="string">")"</span>);</span></span><br><span class="line"><span class="javascript">		       $.messager.show(&#123;</span></span><br><span class="line"><span class="actionscript">		    		title:<span class="string">'提示消息'</span>,</span></span><br><span class="line">		    		msg:jsonData.msg,</span><br><span class="line">		    		timeout:3000,</span><br><span class="line"><span class="actionscript">		    		showType:<span class="string">'slide'</span></span></span><br><span class="line">		    	&#125;);</span><br><span class="line"><span class="actionscript">		    	<span class="comment">// 关闭窗口:</span></span></span><br><span class="line"><span class="javascript">		    	$(<span class="string">"#winUpdate"</span>).window(<span class="string">"close"</span>);</span></span><br><span class="line"><span class="actionscript">		    	<span class="comment">// 重新加载数据:</span></span></span><br><span class="line"><span class="javascript">		    	$(<span class="string">"#dg"</span>).datagrid(<span class="string">"reload"</span>);</span></span><br><span class="line">		    &#125;    </span><br><span class="line">		&#125;);    </span><br><span class="line"><span class="actionscript">		<span class="comment">// submit the form    </span></span></span><br><span class="line"><span class="javascript">		$(<span class="string">'#formUpdate'</span>).submit();  </span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="actionscript">	<span class="function"><span class="keyword">function</span> <span class="title">deleteById</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> row = $(<span class="string">'#dg'</span>).datagrid(<span class="string">'getSelected'</span>);</span></span><br><span class="line">		if(row)&#123;</span><br><span class="line"><span class="actionscript">			<span class="comment">//alert(row.cust_id);</span></span></span><br><span class="line"><span class="javascript">			$.messager.confirm(<span class="string">'确认'</span>,<span class="string">'确认要删除：'</span>+row.emp_name+<span class="string">'吗？'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">flag</span>)</span>&#123;</span></span><br><span class="line">				if(flag)&#123;</span><br><span class="line"><span class="javascript">					$.post(<span class="string">"emp_delete.action"</span>,&#123;<span class="string">"emp_id"</span>:row.emp_id&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">						$.messager.show(&#123;</span></span><br><span class="line"><span class="actionscript">				    		title:<span class="string">'提示消息'</span>,</span></span><br><span class="line">				    		msg:data.msg,</span><br><span class="line">				    		timeout:5000,</span><br><span class="line"><span class="actionscript">				    		showType:<span class="string">'slide'</span></span></span><br><span class="line">				    	&#125;);</span><br><span class="line"><span class="javascript">						$(<span class="string">"#dg"</span>).datagrid(<span class="string">"reload"</span>);</span></span><br><span class="line"><span class="actionscript">					&#125;,<span class="string">"json"</span>);</span></span><br><span class="line">				&#125;				</span><br><span class="line">			&#125;);			</span><br><span class="line">		&#125;</span><br><span class="line"><span class="actionscript">		<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="actionscript">			alert(<span class="string">"dont find"</span>);</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="actionscript">	<span class="function"><span class="keyword">function</span> <span class="title">editById</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> row = $(<span class="string">'#dg'</span>).datagrid(<span class="string">'getSelected'</span>);</span></span><br><span class="line">		if(row)&#123;</span><br><span class="line"><span class="javascript">			$(<span class="string">"#winUpdate"</span>).window(<span class="string">"open"</span>);</span></span><br><span class="line"><span class="javascript">			$(<span class="string">'#formUpdate'</span>).form(<span class="string">'load'</span>,<span class="string">"emp_findById.action?emp_id="</span>+row.emp_id+<span class="string">""</span>);</span></span><br><span class="line">		&#125;</span><br><span class="line"><span class="actionscript">		<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="actionscript">			alert(<span class="string">"没有选中列！"</span>);</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">id</span>=<span class="string">"dg"</span>&gt;</span><span class="tag">&lt;/<span class="name">table</span>&gt;</span>  </span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 添加客户的表单，默认是隐藏的 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"winAdd"</span> <span class="attr">class</span>=<span class="string">"easyui-window"</span> <span class="attr">title</span>=<span class="string">"添加"</span> <span class="attr">style</span>=<span class="string">"width:440px;height:200px"</span>   </span></span><br><span class="line"><span class="tag">	        <span class="attr">data-options</span>=<span class="string">"iconCls:'icon-save',modal:true,closed:true"</span>&gt;</span>   </span><br><span class="line">		    </span><br><span class="line">	        <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"formAdd"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">				 <span class="tag">&lt;<span class="name">table</span> <span class="attr">style</span>=<span class="string">"margin:auto"</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span>员工姓名：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">				 			<span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"easyui-textbox"</span> <span class="attr">name</span>=<span class="string">"emp_name"</span> <span class="attr">style</span>=<span class="string">"width:200px"</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span>员工性别：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">				 			<span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"easyui-textbox"</span> <span class="attr">name</span>=<span class="string">"emp_sex"</span> <span class="attr">style</span>=<span class="string">"width:200px"</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span>员工年龄：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">				 			<span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"easyui-textbox"</span> <span class="attr">name</span>=<span class="string">"emp_age"</span> <span class="attr">style</span>=<span class="string">"width:200px"</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span>手机号码：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">				 			<span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"easyui-textbox"</span> <span class="attr">name</span>=<span class="string">"emp_phone"</span> <span class="attr">style</span>=<span class="string">"width:200px"</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span>职位：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">				 			<span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"easyui-textbox"</span> <span class="attr">name</span>=<span class="string">"emp_dep"</span> <span class="attr">style</span>=<span class="string">"width:200px"</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span>				 		</span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"easyui-linkbutton"</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">onclick</span>=<span class="string">"save()"</span>&gt;</span>保存<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				 <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"winUpdate"</span> <span class="attr">class</span>=<span class="string">"easyui-window"</span> <span class="attr">title</span>=<span class="string">"修改"</span> <span class="attr">style</span>=<span class="string">"width:440px;height:200px"</span>   </span></span><br><span class="line"><span class="tag">	        <span class="attr">data-options</span>=<span class="string">"iconCls:'icon-save',modal:true,closed:true"</span>&gt;</span>   		    </span><br><span class="line">	        <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"formUpdate"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">	        	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"emp_id"</span>/&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">table</span> <span class="attr">style</span>=<span class="string">"margin:auto"</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span>员工姓名：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">				 			<span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"easyui-textbox"</span> <span class="attr">name</span>=<span class="string">"emp_name"</span> <span class="attr">style</span>=<span class="string">"width:200px"</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span>员工性别：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">				 			<span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"easyui-textbox"</span> <span class="attr">name</span>=<span class="string">"emp_sex"</span> <span class="attr">style</span>=<span class="string">"width:200px"</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span>员工年龄：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">				 			<span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"easyui-textbox"</span> <span class="attr">name</span>=<span class="string">"emp_age"</span> <span class="attr">style</span>=<span class="string">"width:200px"</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span>手机号码：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">				 			<span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"easyui-textbox"</span> <span class="attr">name</span>=<span class="string">"emp_phone"</span> <span class="attr">style</span>=<span class="string">"width:200px"</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span>职位：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line">				 			<span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"easyui-textbox"</span> <span class="attr">name</span>=<span class="string">"emp_dep"</span> <span class="attr">style</span>=<span class="string">"width:200px"</span>&gt;</span></span><br><span class="line">				 		<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">				 	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">td</span> <span class="attr">rowspan</span>=<span class="string">2</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"easyui-linkbutton"</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">onclick</span>=<span class="string">"update()"</span>&gt;</span>保存<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">table</span>&gt;</span>   </span><br><span class="line">			<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><img src="/2019/07/10/ssh-easyui实现后台管理-1/easy1.png">
+
+<img src="/2019/07/10/ssh-easyui实现后台管理-1/easy2.png">
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/SSH/" rel="tag"># SSH</a>
+          
+            <a href="/tags/EasyUI/" rel="tag"># EasyUI</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/07/hexo-next主题的简单配置/" rel="next" title="hexo next主题的简单配置">
+                <i class="fa fa-chevron-left"></i> hexo next主题的简单配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/10/ssh-easyui实现后台管理-2/" rel="prev" title="ssh-easyui实现后台管理(2)">
+                ssh-easyui实现后台管理(2) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">子非鱼</p>
+              <p class="site-description motion-element" itemprop="description">一个简单的hexo next博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chenqi4547" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:cq4547@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#easy-ui-ssh"><span class="nav-number">1.</span> <span class="nav-text">easy-ui+ssh</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前台页面-reception-jsp"><span class="nav-number">1.1.</span> <span class="nav-text">前台页面 reception.jsp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据展示页面-emp-html"><span class="nav-number">1.2.</span> <span class="nav-text">数据展示页面 emp.html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果图"><span class="nav-number">1.3.</span> <span class="nav-text">效果图</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">子非鱼</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">23.0k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'L0c0qiyjpbjAldnBSuUGE3VJ-gzGzoHsz',
+        appKey: '9BlTYYgp2yonkEP8qkmp7H49',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
