@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/04/19/Kafka%E5%85%A5%E9%97%A8/</loc>
+    
+    <lastmod>2020-04-19T13:34:19.673Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/04/19/Spring-Cloud%E4%B9%8BOpenFeign/</loc>
     
     <lastmod>2020-04-19T11:55:05.639Z</lastmod>
@@ -114,14 +121,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2019/08/02/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80-2/</loc>
+    <loc>http://yoursite.com/2019/08/03/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80-3/</loc>
     
     <lastmod>2020-04-08T10:08:05.728Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2019/08/03/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80-3/</loc>
+    <loc>http://yoursite.com/2019/08/02/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80-2/</loc>
     
     <lastmod>2020-04-08T10:08:05.728Z</lastmod>
     
